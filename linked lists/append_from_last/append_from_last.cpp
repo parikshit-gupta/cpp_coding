@@ -1,26 +1,26 @@
-#include<iostream>
-#include<cstdio>
+#include <iostream>
+#include <cstdio>
 using namespace std;
 
 class node
 {
-    public:
+public:
     int data;
-    node*next;
+    node *next;
 
     node(int data)
     {
-        this->data=data;
-        next=NULL;
+        this->data = data;
+        next = NULL;
     }
 
     ~node()
     {
-        if (next!=NULL)
+        if (next != NULL)
         {
             delete next;
         }
-        cout<<data<<" : object destoyed."<<endl;
+        cout << data << " : object destroyed." << endl;
     }
 };
 
@@ -29,8 +29,8 @@ node *input()
     int data;
     cout << "enter the first element of the linked list: ";
     cin >> data;
-    //node n1(data);
-    node * n1= new node(data);
+    // node n1(data);
+    node *n1 = new node(data);
     node *head = n1;
     node *temp = head;
     while (true)
@@ -58,7 +58,7 @@ node *input()
     return head;
 }
 
-//printing the linked list
+// printing the linked list
 void print(node *head)
 {
     node *temp = head;
@@ -71,34 +71,63 @@ void print(node *head)
     print(temp);
 }
 
-int find_elmnt(node*head, int elmnt, int c)
+// lenght of a LL recursively
+int len_ll(node *head)
 {
-    node*temp=head;
-    if (temp->data==elmnt)
+    node *temp = head;
+    if (temp->next == NULL)
     {
-        return c;
+        return 1;
     }
 
-    if (temp==NULL)
+    temp = temp->next;
+    return 1 + len_ll(temp);
+}
+
+node *append_from_last(node *head, int N)
+{
+    cout<<"hello"<<endl;
+    node *temp = head;
+    node *temp1;
+    int len = len_ll(temp);
+    cout<< len<<endl;
+    int c = 0;
+    while (c <= len)
     {
-        return -1;
+        if (c==len-1)
+        {
+            temp->next = head;
+            temp=temp->next;
+            c++;
+        }
+
+        if (c == len - N-1)
+        {
+            temp1 = temp->next;
+            temp->next = NULL;
+            temp=temp1;
+            c++;
+        }
+        else
+        {
+            temp = temp->next;
+            c++;
+        }
     }
 
-    return find_elmnt(temp->next, elmnt, ++c);
+    return temp1;
 }
 
 int main()
 {
     node *head =input();
-    if (find_elmnt(head, 40, 0)==-1)
-    {
-        cout<< "element not found."<<endl;
-    }
+    cout<<"before appending: "<<endl;
+    print(head);
+    node *new_head=append_from_last(head, 2);
+    cout<<"after appending: "<< endl;
+    print(new_head);
 
-    else
-    {
-        cout<< "element found at index: "<< find_elmnt(head, 40, 0)<<endl;
-    }
-
-    delete head;
+    delete new_head;
+    
+    return 0;
 }

@@ -1,26 +1,27 @@
-#include<iostream>
-#include<cstdio>
+#include <iostream>
+#include <cstdio>
 using namespace std;
+// eliminating duplicates from a sorted linked list
 
 class node
 {
-    public:
+public:
     int data;
-    node*next;
+    node *next;
 
     node(int data)
     {
-        this->data=data;
-        next=NULL;
+        this->data = data;
+        next = NULL;
     }
 
     ~node()
     {
-        if (next!=NULL)
+        if (next != NULL)
         {
             delete next;
         }
-        cout<<data<<" : object destoyed."<<endl;
+        cout << data << " : object destroyed."<<endl;
     }
 };
 
@@ -29,8 +30,8 @@ node *input()
     int data;
     cout << "enter the first element of the linked list: ";
     cin >> data;
-    //node n1(data);
-    node * n1= new node(data);
+    // node n1(data);
+    node *n1 = new node(data);
     node *head = n1;
     node *temp = head;
     while (true)
@@ -58,7 +59,7 @@ node *input()
     return head;
 }
 
-//printing the linked list
+// printing the linked list
 void print(node *head)
 {
     node *temp = head;
@@ -71,34 +72,42 @@ void print(node *head)
     print(temp);
 }
 
-int find_elmnt(node*head, int elmnt, int c)
+// eliminating duplicates from a LL
+void eliminate_duplicates(node *head)
 {
-    node*temp=head;
-    if (temp->data==elmnt)
+    node *temp = head;
+    int c = 0;
+    while (temp ->next!= NULL)
     {
-        return c;
-    }
+        if ((temp->data == (temp->next)->data))
+        {
+            node *temp1 = temp->next;
+            temp->next = temp->next->next;
+            temp1->next = NULL;
+            delete temp1;
+        }
 
-    if (temp==NULL)
-    {
-        return -1;
-    }
+        if ((temp->data == (temp->next)->data)&&(temp->next)->next==NULL)
+        {
+            delete temp->next;
+            temp->next =NULL;
+            break;
+        }
 
-    return find_elmnt(temp->next, elmnt, ++c);
+        temp=temp->next;
+        c++;
+    }
+    return;
 }
 
 int main()
 {
-    node *head =input();
-    if (find_elmnt(head, 40, 0)==-1)
-    {
-        cout<< "element not found."<<endl;
-    }
-
-    else
-    {
-        cout<< "element found at index: "<< find_elmnt(head, 40, 0)<<endl;
-    }
-
+    node *head=input();
+    cout<<"linked list before elimination: "<<endl;
+    print(head);
+    eliminate_duplicates(head);
+    cout<<"linked list after elimination: "<<endl;
+    print(head);
     delete head;
+    return 0;
 }

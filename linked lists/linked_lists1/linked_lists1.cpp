@@ -149,7 +149,7 @@ int main()
     node *head1 = input();
     cout<<head1<<endl;
     print(head1);
-    //cout << "lenght of the above linked list is: " << len_LL(head1) << endl;
+    cout << "lenght of the above linked list is: " << len_LL(head1) << endl;
     /*int x=find_node(head1, 3);
     cout<<x<<endl;
     cout<<head1<<endl;*/

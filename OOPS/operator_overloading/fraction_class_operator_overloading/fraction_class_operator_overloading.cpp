@@ -68,7 +68,7 @@ public:
         return false;
     }
 
-    // post increament operator
+    // pre-increament operator
 
     /*void operator++()
     {
@@ -112,10 +112,22 @@ public:
         this->simplify();
         return *this;
     }
+
+    friend fraction operator+ (int i, fraction const &f1);
 };
+
+fraction operator+ (int i, fraction const &f1)
+{
+    int num=(i*f1.den)+f1.num;
+    int den=f1.den;
+    fraction f3(num, den);
+    f3.simplify();
+    return f3;
+}
 
 int main()
 {
+    /*
     fraction f1(1, 2);
     fraction f2(2, 3);
 
@@ -145,6 +157,11 @@ int main()
 
     bool c = (f1 == f2);
     cout << c << endl;
+    */
+
+   fraction f1(11,2);
+   f1=2+f1;
+   f1.display();
 
     return 0;
 }

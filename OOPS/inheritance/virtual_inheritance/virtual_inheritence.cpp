@@ -20,7 +20,7 @@ public:
 class B : virtual public A
 {
 public:
-    B():A(3)
+    B(int x):A(x)
     {
         cout << "constructor of B" << endl;
     }
@@ -49,7 +49,8 @@ public:
 class D : public B, public C
 {
 public:
-    D(int x):A(x)
+
+    D(int x, int y):A(x),B(y)
     {
         cout << "constructor of D" << endl;
     }
@@ -58,11 +59,25 @@ public:
     {
         cout << "D" << endl;
     }
+
+    /*
+    this would give an error as constructor of D calls the constructor of A itself, and default constructor of A doesnt exist.
+    and neither one of the constructors of  B and C calls the constructor of A
+    D(int y):B(y)
+    {
+        cout << "constructor of D" << endl;
+    }
+
+    void print()
+    {
+        cout << "D" << endl;
+    }*/
 };
 
 int main()
 {
-    D d(5);
+    B b(100);
+    D d(5,10);
     d.A::print();
     d.B::print();
     d.C::print();

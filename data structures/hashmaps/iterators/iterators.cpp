@@ -7,6 +7,8 @@ using namespace std;
 
 int main()
 {
+    string apha="abc";
+    cout<<apha[2]<<endl;
     unordered_map<char, int> ourmap;
     unordered_map<char, int>::iterator it;
     it=ourmap.begin();

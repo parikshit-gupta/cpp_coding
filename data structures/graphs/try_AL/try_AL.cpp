@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    graph<int> g1;
+
     int n;
     cout<<"enter the number of nodes: ";
     cin>>n;
@@ -13,6 +13,7 @@ int main()
     int m;
     cout<<"enter the number of edges: ";
     cin>>m;
+    graph g1(n,m);
 
     //creating the graph by inserting edges
     for (int i=0; i<m;i++)
